@@ -14,7 +14,19 @@ export async function connect(){
     //     ],
     //     synchronize: true
     // })
-
+    //console.log(process.env.MONGO_TYPEO)
+    //await createConnection({
+    //    type: "mongodb",
+    //    url: process.env.MONGO_TYPEO,
+    //    useNewUrlParser: true,
+    //    useUnifiedTopology: true,
+    //    retryWrites: true,
+    //    synchronize: true,
+    //    logging: true,
+    //    entities: [
+    //        path.join(__dirname,'../entity/**/**.ts')
+    //    ],
+    //});
 
     await createConnection({
         type: 'postgres',
@@ -22,11 +34,12 @@ export async function connect(){
         port: 5432,
         username: 'postgres',
         password: 'R4tch3t',
-        database: 'db_siiam_dev',
+        database: 'chatApp',
         entities: [
-            path.join(__dirname,'../entity/**/**.ts')
+            path.join(__dirname,'../entity/**/**.ts'),
+            path.join(__dirname,'../entities/**/**.ts')
         ],
-        synchronize: false
+        synchronize: true
     })
 
 

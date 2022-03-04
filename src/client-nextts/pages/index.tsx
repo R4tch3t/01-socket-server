@@ -5,10 +5,14 @@ import styles from '../styles/Home.module.css'
 import Feed from './components/Feed'
 import Chatbox from './components/Chatbox'
 import Namebox from './components/Namebox'
+//import Login from './subPages/Login'
+import AppLinker  from './router/AppLinker'
 
 const Home: NextPage = () => {
-  
-  return (
+  return(
+      <AppLinker  />
+  )
+  /*return (
     <div className={styles.container}>
       <Head>
         <title>Create Next App</title>
@@ -26,8 +30,8 @@ const Home: NextPage = () => {
           Get started by editing{' '}
           <code className={styles.code}>pages/index.tsx</code>
         </p>
-
-        <div className={styles.grid}>
+        
+       <div className={styles.grid}>
 
           <Namebox />
 
@@ -60,7 +64,7 @@ const Home: NextPage = () => {
         </a>
       </footer>
     </div>
-  )
+  )*/
 }
 
 export default Home

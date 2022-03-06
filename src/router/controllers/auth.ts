@@ -29,6 +29,7 @@ const crearUsuario = async (req=request, res=response)=>{
         const token = await generarJWT(usuario.id,usuario.uuid);
 
         res.json({
+            ok:true,
             usuario,
             token
         });
@@ -66,6 +67,7 @@ const login = async (req=request, res=response)=>{
         const token = await generarJWT(usuario.id,usuario.uuid);
 
         res.json({
+            ok:true,
             usuario,
             token
         });

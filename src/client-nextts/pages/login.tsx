@@ -1,9 +1,14 @@
 import type {NextPage} from 'next'
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
+import { useAppContext } from './auth/authContext';
+import Errors from './components/Errors';
 
 const Login: NextPage = () => {
+  //let sE:any = ['']
+  const [eLog, setELog] = useState({band: false, errors: ['']})
+  const {login}:any = useAppContext()
   const [form, setForm] = useState({
-    email:'test@test.com',
+    email:'test1@test.com',
     password: '1234',
     rememberme: false
   });
@@ -28,13 +33,19 @@ const Login: NextPage = () => {
       rememberme: !form.rememberme
     });
   }
-  const onSubmit = (e:any) => {
+  const onSubmit = async (e:any) => {
     e.preventDefault();
     form.rememberme?
       localStorage.setItem("email",form.email):
       localStorage.removeItem("email");
-    
-    console.log(form)
+    const ok = await login(form.email,form.password);
+    if(!ok){
+      //sE=["Verificar usuario y/o contraseña"]
+      const errors:any=[];
+      errors.push("Verificar usuario y/o contraseña.");
+      setELog({band:!ok,errors});
+    }
+    console.log(ok)
   }
 
     return (
@@ -47,8 +58,11 @@ const Login: NextPage = () => {
             <body class="h-full">
             ```
           */}
+          {eLog.band&&<Errors e={eLog.errors} />}
           <div className="min-h-full flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+          
             <div className="sm:mx-auto sm:w-full sm:max-w-md">
+            
               <img
                 className="mx-auto h-12 w-auto"
                 src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg"
@@ -198,6 +212,7 @@ const Login: NextPage = () => {
               </div>
             </div>
           </div>
+          
         </>
       );
 }

@@ -1,24 +1,27 @@
 import type {NextPage} from 'next'
 import { useCallback, useState } from 'react';
-import {useCreateUserMutation, UsuarioInput, CreateUserDocument } from './graphql/generated';
+import {UsuarioInput, CreateUserDocument } from './graphql/generated';
 import {Client} from 'urql'
+import {url} from "./variables/url"
 import UsuariosQ from './UsuariosQ';
+import { useAppContext } from './auth/authContext';
 
 
 
 const Signup: NextPage = () => {
+    const {signup}:any = useAppContext()
     const [form, setForm] = useState({
         nombre:'nombre',
         email:'test@test.com',
         password: '1234'
     });
     
-    const crear = useCallback( ()=>{
+    /*const crear = useCallback( ()=>{
         const [user,  createUser ] = useCreateUserMutation()
     
     const newUser: UsuarioInput = {nombre: form.nombre, email:form.email, password: form.password, online: false}
     createUser( { user: newUser } );
-    }, []);
+    }, []);*/
     
 
     const onChange = ({target}:any) => {
@@ -33,16 +36,19 @@ const Signup: NextPage = () => {
         e.preventDefault();
         //crear()
         
-        const url = "http://localhost:3000/graphql";
+        
+        /* con URQL
         const user: UsuarioInput = {nombre: form.nombre, email:form.email, password: form.password, online: false}
         const usuariosResult:any = (new Client({ url })).mutation(CreateUserDocument,{user}).toPromise()
         usuariosResult.then((v:any)=>{
             console.log("toPromise")
             console.log("Usuario Creado")
             console.log(v)
-        })
-        //addTodo.stale()({ variables: { type: input.value } });
-        console.log(form)
+        });*/
+        
+        signup(form.nombre,form.email,form.password);
+
+        
       }
 
     return (

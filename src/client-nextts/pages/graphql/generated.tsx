@@ -1,5 +1,4 @@
 import gql from 'graphql-tag';
-import * as Urql from 'urql';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
@@ -199,14 +198,14 @@ export type MensajesQuery = { __typename?: 'Query', mensajes: Array<{ __typename
 export type UsuariosQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type UsuariosQuery = { __typename?: 'Query', usuarios: Array<{ __typename?: 'Usuario', id: number, email: string }> };
+export type UsuariosQuery = { __typename?: 'Query', usuarios: Array<{ __typename?: 'Usuario', id: number, uuid: string, nombre: string, email: string, password: string }> };
 
 export type CreateUserMutationVariables = Exact<{
   user: UsuarioInput;
 }>;
 
 
-export type CreateUserMutation = { __typename?: 'Mutation', createUser: { __typename?: 'Usuario', id: number, nombre: string, email: string } };
+export type CreateUserMutation = { __typename?: 'Mutation', createUser: { __typename?: 'Usuario', id: number, uuid: string, nombre: string, email: string } };
 
 
 export const MensajesDocument = gql`
@@ -228,32 +227,24 @@ export const MensajesDocument = gql`
   }
 }
     `;
-
-export function useMensajesQuery(options: Omit<Urql.UseQueryArgs<MensajesQueryVariables>, 'query'>) {
-  return Urql.useQuery<MensajesQuery>({ query: MensajesDocument, ...options });
-};
 export const UsuariosDocument = gql`
     query Usuarios {
   usuarios {
     id
+    uuid
+    nombre
     email
+    password
   }
 }
     `;
-
-export function useUsuariosQuery(options?: Omit<Urql.UseQueryArgs<UsuariosQueryVariables>, 'query'>) {
-  return Urql.useQuery<UsuariosQuery>({ query: UsuariosDocument, ...options });
-};
 export const CreateUserDocument = gql`
     mutation createUser($user: UsuarioInput!) {
   createUser(user: $user) {
     id
+    uuid
     nombre
     email
   }
 }
     `;
-
-export function useCreateUserMutation() {
-  return Urql.useMutation<CreateUserMutation, CreateUserMutationVariables>(CreateUserDocument);
-};

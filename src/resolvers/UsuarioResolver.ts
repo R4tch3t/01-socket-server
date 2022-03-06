@@ -8,7 +8,10 @@ const postsQueryDocument = gql`
   query Usuarios {
     usuarios {
         id
+        uuid
+        nombre
         email
+        password
     }
   }
 

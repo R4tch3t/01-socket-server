@@ -1,8 +1,5 @@
-import type {NextPage} from 'next'
-import { XCircleIcon } from '@heroicons/react/solid'
-const Errors = ({e}:any) => {
-    //const {e}=props
-    console.log("e"+e)
+import { XCircleIcon, XIcon  } from '@heroicons/react/solid'
+const Errors = ({e, setELog}:any) => {
     const title = e.length<2?"Se encontro el siguiente error en la consulta:":
     (`Se encontraron ${e.length} errores en la consulta`)
     /*<div className="rounded-md bg-red-50 p-4" style={{position: 'fixed', width: '100%'}} >*/
@@ -20,6 +17,20 @@ const Errors = ({e}:any) => {
                         return <li key={i} > {v} </li> 
                     })}
                 </ul>
+              </div>
+            </div>
+            <div className="ml-auto pl-3">
+              <div className="-mx-1.5 -my-1.5">
+                <button
+                  type="button"
+                  onMouseUp={()=>{
+                    setELog({band: false})
+                  }}
+                  className="inline-flex bg-red-50 rounded-md p-1.5 text-red-500 hover:bg-red-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-red-50 focus:ring-red-600"
+                >
+                  <span className="sr-only">Cerrar</span>
+                  <XIcon className="h-5 w-5" aria-hidden="true" />
+                </button>
               </div>
             </div>
           </div>

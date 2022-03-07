@@ -7,8 +7,11 @@ import Chatbox from './components/Chatbox'
 import Namebox from './components/Namebox'
 //import Login from './subPages/Login'
 import AppLinker  from './router/AppLinker'
+import { useAppContext } from './auth/authContext'
+import { useEffect } from 'react'
 
 const Home: NextPage = () => {
+  
   return(
       <AppLinker  />
   )

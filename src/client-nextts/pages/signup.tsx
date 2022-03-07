@@ -5,10 +5,14 @@ import {Client} from 'urql'
 import {url} from "./variables/url"
 import UsuariosQ from './UsuariosQ';
 import { useAppContext } from './auth/authContext';
+import Errors from './components/Errors';
+import Success from './components/Success';
 
 
 
 const Signup: NextPage = () => {
+    const [sLog, setSLog] = useState({band: false, success: ['']})
+    const [eLog, setELog] = useState({band: false, errors: ['']})
     const {signup}:any = useAppContext()
     const [form, setForm] = useState({
         nombre:'nombre',
@@ -32,7 +36,7 @@ const Signup: NextPage = () => {
         });
     }
 
-    const onSubmit = (e:any) => {
+    const onSubmit = async (e:any) => {
         e.preventDefault();
         //crear()
         
@@ -46,10 +50,33 @@ const Signup: NextPage = () => {
             console.log(v)
         });*/
         
-        signup(form.nombre,form.email,form.password);
+        const ok = await signup(form.nombre,form.email,form.password);
 
+        if(ok!==true){
+            //sE=["Verificar usuario y/o contraseña"]
+            const errors:any=[];
+            //errors.push("Verificar email y/o contraseña.");
+            //errors.push("Es posible que la cuenta ya exista.");
+            errors.push(ok)
+            console.log("error? "+ok)
+            setELog({band:true,errors});
+        } else {
+            const success:any=[];
+            success.push("El usuario se registró con éxito");
+            console.log("success!?")
+            //errors.push("Es posible que la cuenta ya exista.");
+            setSLog({band:ok,success});
+            setELog({band:false,errors:[]});
+        }
         
-      }
+    }
+
+    const todoOk = () => {
+        return (form.nombre.length>0&&
+                form.email.length>0&&
+                form.password.length>0)
+                ?true:false
+    }
 
     return (
     <>
@@ -62,6 +89,8 @@ const Signup: NextPage = () => {
         <body class="h-full">
         ```
         */}
+        {eLog.band&&<Errors e={eLog.errors} setELog={setELog} />}
+        {sLog.band&&<Success s={sLog.success} setSLog={setSLog} />}
         <div className="min-h-full flex flex-col justify-center py-12 sm:px-6 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-md">
             {/*<UsuariosQ />*/}
@@ -147,6 +176,7 @@ const Signup: NextPage = () => {
                 <div>
                 <button
                     type="submit"
+                    disabled={!todoOk()}
                     className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                 >
                     Registrar

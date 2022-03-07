@@ -48,6 +48,10 @@ const Login: NextPage = () => {
     console.log(ok)
   }
 
+  const todoOk = () => {
+    return (form.email.length>0&&form.password.length>0)?true:false
+  }
+
     return (
         <>
           {/*
@@ -58,7 +62,7 @@ const Login: NextPage = () => {
             <body class="h-full">
             ```
           */}
-          {eLog.band&&<Errors e={eLog.errors} />}
+          {eLog.band&&<Errors e={eLog.errors} setELog={setELog} />}
           <div className="min-h-full flex flex-col justify-center py-12 sm:px-6 lg:px-8">
           
             <div className="sm:mx-auto sm:w-full sm:max-w-md">
@@ -146,6 +150,7 @@ const Login: NextPage = () => {
                   <div>
                     <button
                       type="submit"
+                      disabled={!todoOk()}
                       className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                     >
                       Iniciar sesión

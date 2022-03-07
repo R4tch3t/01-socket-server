@@ -1,10 +1,32 @@
 import Link from 'next/link'
-import React from 'react';
+import Router from 'next/router';
+import React, { useEffect } from 'react';
+import { useAppContext } from '../auth/authContext';
 
 import Chat from "../subPages/Chat"
 //import Login from "../login"
 //import Registro from "../sigin"
  const AppLinker = () =>{
+    
+const {auth, verificaToken}:any = useAppContext();
+  
+  useEffect(()=>{
+    verificaToken();
+  },[]);
+
+  if(auth.checking){
+    return <h1>ESPERE PORFAVOR...</h1>
+  }
+
+  console.log(auth)
+
+  if(!auth.logged){
+    /*useEffect(()=>{
+        verificaToken();
+      },[]);*/
+      Router.push("/login");
+  }
+
 return (<>
     <header >
         <Link href="/" > </Link>
@@ -33,7 +55,7 @@ return (<>
             </li>
         </ul>*/}
     </header>
-    <Chat/>
+    {auth.logged&&<Chat/>}
     </>
 );
 }

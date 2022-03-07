@@ -1,7 +1,6 @@
 import '../styles/globals.css'
 import type { AppProps } from 'next/app'
-import  AuthProvider  from './auth/authContext'
-import {ApolloClient, ApolloProvider, InMemoryCache} from "@apollo/client"
+import  AuthProvider, { useAppContext }  from './auth/authContext'
 
 function MyApp({ Component, pageProps }: AppProps) {
   /* return (
@@ -9,17 +8,16 @@ function MyApp({ Component, pageProps }: AppProps) {
       {typeof window === 'undefined' ? null : <Component {...pageProps} /> }
     </div>
   ) */
-  const client = new ApolloClient({
+  /*const client = new ApolloClient({
     uri: 'http://localhost:3000/graphql',
     cache: new InMemoryCache()
-  });
-  
+  });*/
+
   return(  
-    <ApolloProvider client={client} >
     <AuthProvider> 
-              <Component {...pageProps} />
-            </AuthProvider>
-    </ApolloProvider>)
+        <Component {...pageProps} />
+    </AuthProvider>
+  );
 }
 
 export default MyApp

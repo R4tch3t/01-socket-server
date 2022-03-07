@@ -4,27 +4,28 @@ import React, { useEffect } from 'react';
 import { useAppContext } from '../auth/authContext';
 
 import Chat from "../subPages/Chat"
+import RedirecApp from './RedirecApp';
 //import Login from "../login"
 //import Registro from "../sigin"
- const AppLinker = () =>{
-    
-const {auth, verificaToken}:any = useAppContext();
+const AppLinker = () =>{
+  const auth = RedirecApp();
+//const {auth, verificaToken}:any = useAppContext();
   
-  useEffect(()=>{
+  /*useEffect(()=>{
     verificaToken();
-  },[]);
+  },[]);*/
 
   if(auth.checking){
     return <h1>ESPERE PORFAVOR...</h1>
   }
 
-  console.log(auth)
+  //console.log(auth)
 
   if(!auth.logged){
     /*useEffect(()=>{
         verificaToken();
       },[]);*/
-      Router.push("/login");
+    Router.push("/login");
   }
 
 return (<>

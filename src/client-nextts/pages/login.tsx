@@ -1,10 +1,13 @@
 import type {NextPage} from 'next'
-import { useContext, useEffect, useState } from 'react';
+import Router  from 'next/router';
+import { useEffect, useState } from 'react';
 import { useAppContext } from './auth/authContext';
 import Errors from './components/Errors';
+import RedirecApp from './router/RedirecApp';
 
 const Login: NextPage = () => {
   //let sE:any = ['']
+  const auth = RedirecApp();
   const [eLog, setELog] = useState({band: false, errors: ['']})
   const {login}:any = useAppContext()
   const [form, setForm] = useState({
@@ -12,6 +15,7 @@ const Login: NextPage = () => {
     password: '1234',
     rememberme: false
   });
+  
 
   useEffect(()=>{
     const email = localStorage.getItem("email");
@@ -51,9 +55,17 @@ const Login: NextPage = () => {
   const todoOk = () => {
     return (form.email.length>0&&form.password.length>0)?true:false
   }
+  
+  if(auth.checking){
+    return <h1>ESPERE PORFAVOR...</h1>
+  }
 
-    return (
-        <>
+  if(auth.logged){
+      Router.push("/");
+  }
+
+  return (
+     <>
           {/*
             This example requires updating your template:
     
@@ -63,7 +75,7 @@ const Login: NextPage = () => {
             ```
           */}
           {eLog.band&&<Errors e={eLog.errors} setELog={setELog} />}
-          <div className="min-h-full flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+          {!auth.logged && <div className="min-h-full flex flex-col justify-center py-12 sm:px-6 lg:px-8">
           
             <div className="sm:mx-auto sm:w-full sm:max-w-md">
             
@@ -216,10 +228,11 @@ const Login: NextPage = () => {
                 </div>
               </div>
             </div>
-          </div>
+          </div>}
           
         </>
       );
+  
 }
 
 export default Login

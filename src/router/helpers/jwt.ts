@@ -14,4 +14,13 @@ const generarJWT = (id:any,uuid:any) => {
     });
 }
 
-export {generarJWT}
+const comprobarJWT = (token="")=>{
+    try{
+        const {id, uuid}:any = jwt.verify(token,process.env.JWT_SECRET!);
+        return [true, {id,uuid}];
+    }catch(e){
+        return [false,e];
+    }
+}
+
+export {generarJWT, comprobarJWT}

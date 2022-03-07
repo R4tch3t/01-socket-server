@@ -81,7 +81,11 @@ const initialState:any = {
     }, []);
 
     const logout = () => {
-
+        localStorage.removeItem("token");
+        setAuth({
+            checking: false,
+            logged: false,
+        });
     }
 
     return (

@@ -10,6 +10,7 @@ import schemas from './schemas/schemas'
 import {Server} from 'socket.io';
 import routerAuth from './router/auth';
 import routerMsj from './router/mensajes';
+import { ioOnConnection } from './socket/events';
 
 export async function startServer(){
     const app = express();
@@ -78,22 +79,8 @@ export async function startServer(){
     }
 
     const io = new Server(httpServer)
+    ioOnConnection(io);
     
-    io.on('connection', (socket) => { 
-      console.log("Cliente conectado!")
-      /*socket.on("hello", () => {
-        console.log("Say event On Hello")
-      });*/
-      socket.on("msjtoserver", (data) => {
-        
-        const {name,msj} = data
-        let time: any = new Date()
-        time=time.toLocaleString();
-        console.log(data)
-        console.log(msj)
-        io.emit("msjfromserver",{name,msj,time})
-      });
-    });
 
     await new Promise<void>(resolve =>
       httpServer.listen({ port: config.port }, resolve)

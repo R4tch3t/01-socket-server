@@ -12,23 +12,30 @@ import {
   SpeakerphoneIcon,
   UserGroupIcon,
   XIcon,
+  LogoutIcon
 } from '@heroicons/react/outline'
+import { useAppContext } from '../auth/authContext'
+import Feed from '../components/Feed'
 
-const navigation = [
-  { name: 'Mensajes', href: '#', icon: ChatAlt2Icon, current: true },
-  { name: 'Calendar', href: '#', icon: CalendarIcon, current: false },
-  { name: 'Teams', href: '#', icon: UserGroupIcon, current: false },
-  { name: 'Directory', href: '#', icon: SearchCircleIcon, current: false },
-  { name: 'Announcements', href: '#', icon: SpeakerphoneIcon, current: false },
-  { name: 'Office Map', href: '#', icon: MapIcon, current: false },
-]
+
 
 function classNames(...classes:any) {
   return classes.filter(Boolean).join(' ')
 }
 
 const Chat: NextPage = () => {
-    const [sidebarOpen, setSidebarOpen] = useState(false)
+  const [sidebarOpen, setSidebarOpen] = useState(false)
+  const {auth,logout}:any = useAppContext();
+
+const navigation:any = [
+  { name: 'Mensajes', href: '#', icon: ChatAlt2Icon, current: true },
+  { name: 'Calendar', href: '#', icon: CalendarIcon, current: false },
+  { name: 'Teams', href: '#', icon: UserGroupIcon, current: false },
+  { name: 'Directory', href: '#', icon: SearchCircleIcon, current: false },
+  { name: 'Announcements', href: '#', icon: SpeakerphoneIcon, current: false },
+  { name: 'Cerrar sesión', href: '', onMouseUp: logout, icon: LogoutIcon, current: false },
+]
+
 
   return (
     <>
@@ -94,10 +101,11 @@ const Chat: NextPage = () => {
                   </div>
                   <nav aria-label="Sidebar" className="mt-5">
                     <div className="px-2 space-y-1">
-                      {navigation.map((item) => (
+                      {navigation.map((item:any) => (
                         <a
                           key={item.name}
                           href={item.href}
+                          onMouseUp={item.onMouseUp}
                           className={classNames(
                             item.current
                               ? 'bg-gray-100 text-gray-900'
@@ -158,10 +166,11 @@ const Chat: NextPage = () => {
                 </div>
                 <nav className="mt-5 flex-1" aria-label="Sidebar">
                   <div className="px-2 space-y-1">
-                    {navigation.map((item) => (
+                    {navigation.map((item:any) => (
                       <a
                         key={item.name}
                         href={item.href}
+                        onMouseUp={item.onMouseUp}
                         className={classNames(
                           item.current
                             ? 'bg-gray-200 text-gray-900'
@@ -188,13 +197,13 @@ const Chat: NextPage = () => {
                     <div>
                       <img
                         className="inline-block h-9 w-9 rounded-full"
-                        src="https://images.unsplash.com/photo-1517365830460-955ce3ccd263?ixlib=rb-=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=256&h=256&q=80"
+                        src="https://pm1.narvii.com/6442/ba5891720f46bc77825afc5c4dcbee06d3c66fe4_hq.jpg"
                         alt=""
                       />
                     </div>
                     <div className="ml-3">
-                      <p className="text-sm font-medium text-gray-700 group-hover:text-gray-900">Whitney Francis</p>
-                      <p className="text-xs font-medium text-gray-500 group-hover:text-gray-700">View profile</p>
+                      <p className="text-sm font-medium text-gray-700 group-hover:text-gray-900">{auth.name}</p>
+                      <p className="text-xs font-medium text-gray-500 group-hover:text-gray-700">Ver perfil</p>
                     </div>
                   </div>
                 </a>
@@ -235,7 +244,9 @@ const Chat: NextPage = () => {
             <aside className="hidden relative xl:flex xl:flex-col flex-shrink-0 w-96 border-l border-gray-200 overflow-y-auto">
               {/* Start secondary column (hidden on smaller screens) */}
               <div className="absolute inset-0 py-6 px-4 sm:px-6 lg:px-8">
-                <div className="h-full border-2 border-gray-200 border-dashed rounded-lg" />
+                
+                <Feed />
+                
               </div>
               {/* End secondary column */}
             </aside>

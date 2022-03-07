@@ -9,6 +9,7 @@ import Namebox from './components/Namebox'
 import AppLinker  from './router/AppLinker'
 import { useAppContext } from './auth/authContext'
 import { useEffect } from 'react'
+import React from 'react'
 
 const Home: NextPage = () => {
   

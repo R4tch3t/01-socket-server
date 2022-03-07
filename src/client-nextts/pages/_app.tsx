@@ -1,6 +1,8 @@
 import '../styles/globals.css'
 import type { AppProps } from 'next/app'
 import  AuthProvider, { useAppContext }  from './auth/authContext'
+import { SocketProvider } from './context/SocketContext';
+import { ChatProvider } from './context/chat/ChatContext';
 
 function MyApp({ Component, pageProps }: AppProps) {
   /* return (
@@ -14,9 +16,14 @@ function MyApp({ Component, pageProps }: AppProps) {
   });*/
 
   return(  
-    <AuthProvider> 
-        <Component {...pageProps} />
-    </AuthProvider>
+    
+    <ChatProvider>
+      <AuthProvider> 
+        <SocketProvider>
+          <Component {...pageProps} />
+        </SocketProvider>
+      </AuthProvider>
+    </ChatProvider>
   );
 }
 

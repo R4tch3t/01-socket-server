@@ -1,6 +1,8 @@
 import type {NextPage} from 'next'
 import { useState } from 'react'
 import { io, Socket } from "socket.io-client";
+import { useAppContext } from '../auth/authContext';
+import { useChatContext } from '../context/chat/ChatContext';
 /*const people = [
     {
       name: 'Lindsay Walton',
@@ -15,12 +17,16 @@ const activityItems = [
 ]*/
 
 const Feed: NextPage = () => {
-    const people = [{
-        name: '',
-        imageUrl:'',
+    const {chatState}:any = useChatContext()
+    const {auth}:any = useAppContext()
+    const imageUrl='https://pm1.narvii.com/6442/ba5891720f46bc77825afc5c4dcbee06d3c66fe4_hq.jpg'
+    /*const people = [{
+        name: 'Victor',
+        imageUrl:'https://pm1.narvii.com/6442/ba5891720f46bc77825afc5c4dcbee06d3c66fe4_hq.jpg',
       }]
-    let [activityItems, setActivityItems]: any = useState([]);
-    const socket: Socket = io();
+    let [activityItems, setActivityItems]: any = useState([{id:0,person: people[0],msj:'Hola mundo', time: '1h'},{id:2,person: people[0],msj:'Hola mundo2', time: '2h'}]);
+    */
+    /*const socket: Socket = io();
     socket.on("msjfromserver", (data)=>{
         //const listmsj: any = document.getElementById("mensajes");
         //listmsj.innerHTML += `<li>${data.msj}</li>`
@@ -34,25 +40,31 @@ const Feed: NextPage = () => {
         const person = people[people.length-1];
         activityItems=activityItems.concat([{id,person,msj,time}]);
         setActivityItems(activityItems);
-    });
+    });*/
 
-    if(activityItems.length>0){
+    if(chatState.usuarios.length>0){
         return (
-            <div style={{width: 500}} >
+            <div  >
             <ul role="list" className="divide-y divide-gray-200">
-                {activityItems.map((activityItem: any) => (
-                <li key={activityItem.id} className="py-4">
+                {chatState.usuarios
+                .filter((user:any)=>user.id!==auth.id)
+                .map((user: any) => (
+                <li key={user.id} className="py-4">
+                    <div className="border-2 border-gray-200 border-dashed rounded-lg" >
                     <div className="flex space-x-3">
-                    <img className="h-6 w-6 rounded-full" src={activityItem.person.imageUrl} alt="" />
+                    <img className="h-6 w-6 rounded-full" src={imageUrl/*activityItem.person.imageUrl*/} alt="" />
                     <div className="flex-1 space-y-1">
                         <div className="flex items-center justify-between">
-                        <h3 className="text-sm font-medium">{activityItem.person.name}</h3>
-                        <p className="text-sm text-gray-500">{activityItem.time}</p>
+                        <h3 className="text-sm font-medium">{user.nombre}</h3>
+                            {user.online&&<p className="text-sm text-green-500">En Linea</p>}
+                            {!user.online&&<p className="text-sm text-gray-500">{"2h"}</p>}
                         </div>
-                        <p className="text-sm text-gray-500">
+                        {user.msj&&<p className="text-sm text-gray-500">
                         {/*Deployed {activityItem.project} ({activityItem.commit} in master) to {activityItem.environment}*/}
-                        {activityItem.msj}
-                        </p>
+                        {user.msj}
+                        </p>}
+                        {!user.msj&&<br/>}
+                    </div>
                     </div>
                     </div>
                 </li>

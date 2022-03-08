@@ -15,7 +15,9 @@ import {
   LogoutIcon
 } from '@heroicons/react/outline'
 import { useAppContext } from '../auth/authContext'
+//import { useChatContext } from '../context/chat/ChatContext'
 import Feed from '../components/Feed'
+import Chatbox from '../components/Chatbox'
 
 
 
@@ -26,6 +28,7 @@ function classNames(...classes:any) {
 const Chat: NextPage = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false)
   const {auth,logout}:any = useAppContext();
+ // const {chatState}:any = useChatContext();
 
 const navigation:any = [
   { name: 'Mensajes', href: '#', icon: ChatAlt2Icon, current: true },
@@ -237,7 +240,9 @@ const navigation:any = [
             <main className="flex-1 relative z-0 overflow-y-auto focus:outline-none">
               {/* Start main area*/}
               <div className="absolute inset-0 py-6 px-4 sm:px-6 lg:px-8">
-                <div className="h-full border-2 border-gray-200 border-dashed rounded-lg" />
+                <div className="h-full border-2 border-gray-200 border-dashed rounded-lg" > 
+                  <Chatbox />
+                </div>
               </div>
               {/* End main area */}
             </main>

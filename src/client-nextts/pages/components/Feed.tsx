@@ -3,6 +3,7 @@ import { useState } from 'react'
 import { io, Socket } from "socket.io-client";
 import { useAppContext } from '../auth/authContext';
 import { useChatContext } from '../context/chat/ChatContext';
+import { types } from '../types/types';
 /*const people = [
     {
       name: 'Lindsay Walton',
@@ -17,9 +18,15 @@ const activityItems = [
 ]*/
 
 const Feed: NextPage = () => {
-    const {chatState}:any = useChatContext()
+    const {chatState, dispatch}:any = useChatContext()
     const {auth}:any = useAppContext()
-    const imageUrl='https://pm1.narvii.com/6442/ba5891720f46bc77825afc5c4dcbee06d3c66fe4_hq.jpg'
+    const imageUrl='https://pm1.narvii.com/6442/ba5891720f46bc77825afc5c4dcbee06d3c66fe4_hq.jpg';
+    const onClick = ({target}:any,user:any) =>{
+        dispatch({
+            type: types.activarChat,
+            payload: {id: user.id,uuid:user.uuid}
+        });
+    }
     /*const people = [{
         name: 'Victor',
         imageUrl:'https://pm1.narvii.com/6442/ba5891720f46bc77825afc5c4dcbee06d3c66fe4_hq.jpg',
@@ -50,13 +57,13 @@ const Feed: NextPage = () => {
                 .filter((user:any)=>user.id!==auth.id)
                 .map((user: any) => (
                 <li key={user.id} className="py-4">
-                    <div className="border-2 border-gray-200 border-dashed rounded-lg" >
+                    <div className="border-2 border-gray-200 border-dashed rounded-lg select-feed" onMouseUp={(e)=>{onClick(e,user)}} >
                     <div className="flex space-x-3">
                     <img className="h-6 w-6 rounded-full" src={imageUrl/*activityItem.person.imageUrl*/} alt="" />
                     <div className="flex-1 space-y-1">
                         <div className="flex items-center justify-between">
                         <h3 className="text-sm font-medium">{user.nombre}</h3>
-                            {user.online&&<p className="text-sm text-green-500">En Linea</p>}
+                            {user.online&&<p className="text-sm text-green-500"><b>En Linea</b></p>}
                             {!user.online&&<p className="text-sm text-gray-500">{"2h"}</p>}
                         </div>
                         {user.msj&&<p className="text-sm text-gray-500">

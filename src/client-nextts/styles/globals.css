@@ -26,3 +26,48 @@ a {
 * {
   box-sizing: border-box;
 }
+
+.select-feed:hover{
+  background-color:aliceblue;
+  color: #0070f3;
+  border-color: #0070f3;
+  cursor: pointer;
+}
+
+.chatBox{
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-end;
+}
+
+.chatDivDe{
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-end;
+}
+
+.chatDivPara{
+  display: flex;
+  flex-direction: column;
+  justify-content:left;
+  align-self: flex-start;
+}
+
+.chatFlow{
+  overflow: auto;
+}
+
+.msjDe{
+  padding-left: 15px;
+  background-color: #0070f3;
+  border-radius: 20px;
+}
+
+.msjPara{
+  align-self:flex-end;
+  padding-right: 15px;
+  background-color:aquamarine;
+  border-radius: 20px;
+}

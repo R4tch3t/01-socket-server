@@ -31,7 +31,7 @@ export const SocketProvider = ({ children }:any) => {
     useEffect(()=>{
         socket?.on("getUsuarios",(usuarios:any)=>{
             dispatch({
-                type: types.cusuariosCargados,
+                type: types.usuariosCargados,
                 payload: usuarios
             })
         })

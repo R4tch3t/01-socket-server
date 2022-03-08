@@ -10,7 +10,9 @@ import {
   XIcon,
 } from '@heroicons/react/solid'
 import { Listbox, Transition } from '@headlessui/react'
-import { io, Socket } from "socket.io-client";
+import MensajeDe from './MensajeDe'
+import MensajePara from './MensajePara'
+//import { io, Socket } from "socket.io-client";
 const moods = [
     { name: 'Excited', value: 'excited', icon: FireIcon, iconColor: 'text-white', bgColor: 'bg-red-500' },
     { name: 'Loved', value: 'loved', icon: HeartIcon, iconColor: 'text-white', bgColor: 'bg-pink-400' },
@@ -25,7 +27,7 @@ function classNames(...classes: any[]) {
 }
 const Chatbox: NextPage = () => {
 const [selected, setSelected] = useState(moods[5]);
-const socket: Socket = io();
+//const socket: Socket = io();
 
 /*socket.on("msjfromserver", (data)=>{
     const listmsj: any = document.getElementById("mensajes");
@@ -34,16 +36,23 @@ const socket: Socket = io();
 
 const handleSend = () => {
     //socket.emit("hello");
-    let name: any = document.getElementById("name");
+    /*let name: any = document.getElementById("name");
     let msj: any = document.getElementById("msj");
     name=name.value;
     msj = msj.value;
     console.log(msj);
-    socket.emit("msjtoserver",{name,msj})
+    socket.emit("msjtoserver",{name,msj})*/
 }
 
-  return (
-    <div className="flex items-start space-x-4" style={{marginTop: 50, width: 500}} >
+  return (<>
+    <div className='h-full chatBox'  >
+      {/*<div className='w-full h-full .chatMsg chatFlow ' >*/}
+        <MensajeDe name={'Victor'} txt={"hola mundoasjdaksljdaslkdjaskldjasiodjoaisdjasi"} />
+        <MensajePara name={'Victor2'} txt={"hola mundo 2"} />
+      
+      {/*</div>*/}
+    
+    <div className="flex items-start space-x-4 w-full"  >
       <div className="flex-shrink-0">
         <img
           className="inline-block h-10 w-10 rounded-full"
@@ -51,8 +60,8 @@ const handleSend = () => {
           alt=""
         />
       </div>
-      <div className="min-w-0 flex-1">
-        <div className="relative">
+      <div className="min-w-0 flex-1" >
+        <div className="relative" >
           <div className="border border-gray-300 rounded-lg shadow-sm overflow-hidden focus-within:border-indigo-500 focus-within:ring-1 focus-within:ring-indigo-500">
             <label htmlFor="msj" className="sr-only">
               Enviar mensaje...
@@ -171,6 +180,8 @@ const handleSend = () => {
         </div>
       </div>
     </div>
+    </div>
+    </>
   )
 }
 export default Chatbox

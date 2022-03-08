@@ -113,3 +113,17 @@ a {
   max-height: 400px
 }
 
+.padSett{
+  position: relative;
+  padding-bottom: 30px;
+}
+
+.inputTop{
+  position: relative;
+  top: -10px
+}
+
+.tabSettings{
+  cursor: pointer;
+}
+

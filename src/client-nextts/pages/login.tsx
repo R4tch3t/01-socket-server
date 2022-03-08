@@ -3,18 +3,21 @@ import Router  from 'next/router';
 import { useEffect, useState } from 'react';
 import { useAppContext } from './auth/authContext';
 import Errors from './components/Errors';
+import ModalError from './components/ModalError';
 import RedirecApp from './router/RedirecApp';
 
 const Login: NextPage = () => {
   //let sE:any = ['']
   const auth = RedirecApp();
-  const [eLog, setELog] = useState({band: false, errors: ['']})
+  //const [eLog, setELog] = useState({band: false, errors: ['']})
   const {login}:any = useAppContext()
   const [form, setForm] = useState({
     email:'test1@test.com',
     password: '1234',
     rememberme: false
   });
+  const [modalE, setModalE] = useState(false);
+  const [dataModal, setDataModal] = useState({title: '', txt:'', btnTxt:''})
   
 
   useEffect(()=>{
@@ -45,9 +48,11 @@ const Login: NextPage = () => {
     const ok = await login(form.email,form.password);
     if(!ok){
       //sE=["Verificar usuario y/o contraseña"]
-      const errors:any=[];
+      /*const errors:any=[];
       errors.push("Verificar usuario y/o contraseña.");
-      setELog({band:!ok,errors});
+      setELog({band:!ok,errors});*/
+      setDataModal({title: "Error", txt: "Verificar usuario y/o contraseña.", btnTxt: "Regresar al inicio" })
+      setModalE(true);
     }
     console.log(ok)
   }
@@ -74,7 +79,9 @@ const Login: NextPage = () => {
             <body class="h-full">
             ```
           */}
-          {eLog.band&&<Errors e={eLog.errors} setELog={setELog} />}
+          {/*eLog.band&&<Errors e={eLog.errors} setELog={setELog} />*/}
+          {modalE && <ModalError open={modalE} setOpen={setModalE} title={dataModal.title} 
+            txt={dataModal.txt} btnTxt={dataModal.btnTxt} />}
           {!auth.logged && <div className="min-h-full flex flex-col justify-center py-12 sm:px-6 lg:px-8">
           
             <div className="sm:mx-auto sm:w-full sm:max-w-md">

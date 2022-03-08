@@ -32,7 +32,7 @@ export async function startServer(){
     app.use(cors())
     app.use(graphqlUploadExpress());
     server.applyMiddleware({app, path: '/graphql'});
-    app.set('view engine', 'js');
+    //app.set('view engine', 'js');
 
     app.use(express.static(path.join(__dirname, 'client-nextts/.next')));
 

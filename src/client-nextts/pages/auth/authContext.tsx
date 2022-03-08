@@ -16,7 +16,7 @@ const initialState:any = {
 
  const AuthProvider = ({ children }:any) => {
     const [auth, setAuth] = useState(initialState)
-    const {dispatch}:any = useChatContext()
+    const {dispatch}:any = useChatContext();
     const login = async (email:any, password:any) => {
         const resp = await fetchSinToken("login",{email,password},"POST");
         console.log("loginAuthProv");
@@ -82,10 +82,47 @@ const initialState:any = {
 
     }, []);
 
+    const updateUser = useCallback( async(user:any,endpoint)=>{
+        const token = localStorage.getItem("token")
+        if(!token){
+            setAuth({
+                checking: false,
+                logged: false,
+            });
+            return false;
+        }
+
+        const resp = await fetchConToken(endpoint,{user},"POST")
+
+        if(resp.ok){
+            localStorage.setItem("token",resp.token);
+            const {usuario} = resp
+            setAuth({
+                id: usuario.id,
+                uuid: usuario.uuid,
+                checking: false,
+                logged: true,
+                name: usuario.nombre,
+                email: usuario.email
+            });
+            return true;
+        }else{
+            /*setAuth({
+                id: 0,
+                uuid: null,
+                checking: false,
+                logged: true,
+            });*/
+            return false
+        }
+
+    }, []);
+    
+
     const logout = () => {
         localStorage.removeItem("token");
         dispatch({type: types.cerrarSesion});
-        
+
         setAuth({
             checking: false,
             logged: false,
@@ -98,6 +135,7 @@ const initialState:any = {
                 login,
                 signup,
                 verificaToken,
+                updateUser,
                 logout
             }} >
                 { children }

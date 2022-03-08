@@ -33,6 +33,7 @@ return (<>
         <Link href="/" > </Link>
         <Link href="/login" > </Link>
         <Link href="/signup" > </Link>
+        <Link href="/perfil" > </Link>
         {/*<ul>
             <li>
             <Link href="/">

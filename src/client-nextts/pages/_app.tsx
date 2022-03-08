@@ -27,6 +27,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         </SocketProvider>
       </AuthProvider>
     </ChatProvider>
+    
   );
 }
 

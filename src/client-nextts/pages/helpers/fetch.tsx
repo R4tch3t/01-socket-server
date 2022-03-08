@@ -21,12 +21,15 @@ export const fetchConToken = async (endpoint:any,data:any='', method="GET") => {
     const baseUrl = `${urlApi}/${endpoint}`
     const token = localStorage.getItem("token")||'';
 
+
+
     if(method==="GET"){
         const resp = await fetch(baseUrl,{headers: {
             "x-token": token
         }});
         return await resp.json()
     }else{
+        console.log(JSON.stringify(data))
         const resp = await fetch(baseUrl,{
             method,
             headers:{ 

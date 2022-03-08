@@ -1,18 +1,19 @@
 import type {NextPage} from 'next'
-import { useCallback, useState } from 'react';
-import {UsuarioInput, CreateUserDocument } from './graphql/generated';
-import {Client} from 'urql'
-import {url} from "./variables/url"
-import UsuariosQ from './UsuariosQ';
+import { useState } from 'react';
 import { useAppContext } from './auth/authContext';
 import Errors from './components/Errors';
+import ModalError from './components/ModalError';
+import ModalSuccess from './components/ModalSucces';
 import Success from './components/Success';
 
 
 
 const Signup: NextPage = () => {
-    const [sLog, setSLog] = useState({band: false, success: ['']})
-    const [eLog, setELog] = useState({band: false, errors: ['']})
+    //const [sLog, setSLog] = useState({band: false, success: ['']})
+    //const [eLog, setELog] = useState({band: false, errors: ['']})
+    const [modalS, setModalS] = useState(false)
+    const [modalE, setModalE] = useState(false)
+    const [dataModal, setDataModal] = useState({title: '', txt:'', btnTxt:''})
     const {signup}:any = useAppContext()
     const [form, setForm] = useState({
         nombre:'nombre',
@@ -54,19 +55,23 @@ const Signup: NextPage = () => {
 
         if(ok!==true){
             //sE=["Verificar usuario y/o contraseña"]
-            const errors:any=[];
+            //const errors:any=[];
             //errors.push("Verificar email y/o contraseña.");
             //errors.push("Es posible que la cuenta ya exista.");
-            errors.push(ok)
-            console.log("error? "+ok)
-            setELog({band:true,errors});
+            //errors.push(ok)
+            //console.log("error? "+ok)
+            //setELog({band:true,errors});
+            setDataModal({title: "Error", txt: ok, btnTxt: "Regresar al registro" })
+            setModalE(true);
         } else {
-            const success:any=[];
+            /*const success:any=[];
             success.push("El usuario se registró con éxito");
             console.log("success!?")
             //errors.push("Es posible que la cuenta ya exista.");
             setSLog({band:ok,success});
-            setELog({band:false,errors:[]});
+            setELog({band:false,errors:[]});*/
+            setDataModal({title: "Éxito", txt: "El usuario se registró con éxito", btnTxt: "Regresar al registro" })
+            setModalS(true);
         }
         
     }
@@ -89,8 +94,12 @@ const Signup: NextPage = () => {
         <body class="h-full">
         ```
         */}
-        {eLog.band&&<Errors e={eLog.errors} setELog={setELog} />}
-        {sLog.band&&<Success s={sLog.success} setSLog={setSLog} />}
+        {/*eLog.band&&<Errors e={eLog.errors} setELog={setELog} />}
+        sLog.band&&<Success s={sLog.success} setSLog={setSLog} />*/}
+        {modalS && <ModalSuccess open={modalS} setOpen={setModalS} title={dataModal.title} 
+        txt={dataModal.txt} btnTxt={dataModal.btnTxt} />}
+        {modalE && <ModalError open={modalE} setOpen={setModalE} title={dataModal.title} 
+        txt={dataModal.txt} btnTxt={dataModal.btnTxt} />}
         <div className="min-h-full flex flex-col justify-center py-12 sm:px-6 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-md">
             {/*<UsuariosQ />*/}

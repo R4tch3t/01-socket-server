@@ -15,10 +15,10 @@ import {
   XIcon,
   LogoutIcon
 } from '@heroicons/react/outline'
-import { useAppContext } from '../auth/authContext'
-//import { useChatContext } from '../context/chat/ChatContext'
-import Feed from '../components/Feed'
-import Chatbox from '../components/Chatbox'
+import { useAppContext } from './auth/authContext'
+import Settings from './components/Settings'
+import RedirecApp from './router/RedirecApp'
+import Router  from 'next/router'
 
 
 
@@ -26,22 +26,32 @@ function classNames(...classes:any) {
   return classes.filter(Boolean).join(' ')
 }
 
-const Chat: NextPage = () => {
-  const [sidebarOpen, setSidebarOpen] = useState(false)
-  const {auth,logout}:any = useAppContext();
- // const {chatState}:any = useChatContext();
+const Perfil: NextPage = () => {
+    const auth = RedirecApp();
+    const [sidebarOpen, setSidebarOpen] = useState(false)
+    const {logout}:any = useAppContext();
+    // const {chatState}:any = useChatContext();
+    console.log(auth)
+    const navigation:any = [
+        { name: 'Mensajes', href: '/', icon: ChatAlt2Icon, current: false },
+        //{ name: 'Calendar', href: '#', icon: CalendarIcon, current: false },
+        //{ name: 'Teams', href: '#', icon: UserGroupIcon, current: false },
+        { name: 'Directorio', href: '#', icon: SearchCircleIcon, current: false },
+        { name: 'Perfil', href: '#', icon: UserIcon, current: true },
+        { name: 'Cerrar sesión', href: '', onMouseUp: logout, icon: LogoutIcon, current: false },
+    ]
 
-const navigation:any = [
-  { name: 'Mensajes', href: '#', icon: ChatAlt2Icon, current: true },
-  //{ name: 'Calendar', href: '#', icon: CalendarIcon, current: false },
-  //{ name: 'Teams', href: '#', icon: UserGroupIcon, current: false },
-  { name: 'Directorio', href: '#', icon: SearchCircleIcon, current: false },
-  { name: 'Perfil', href: '/perfil', icon: UserIcon, current: false },
-  { name: 'Cerrar sesión', href: '', onMouseUp: logout, icon: LogoutIcon, current: false },
-]
-
-
-  return (
+    if(auth.checking){
+        return <h1>ESPERE PORFAVOR...</h1>
+    }
+    
+    if(!auth.logged){
+          Router.push("/login");
+    }
+  if(!auth.logged){
+    return <h1>ESPERE PORFAVOR...</h1>    
+  }else
+    return (
     <>
       {/*
         This example requires updating your template:
@@ -240,22 +250,14 @@ const navigation:any = [
           <div className="flex-1 relative z-0 flex overflow-hidden">
             <main className="flex-1 relative z-0 overflow-y-auto focus:outline-none">
               {/* Start main area*/}
-              <div className="absolute inset-0 py-6 px-4 sm:px-6 lg:px-8">
-                <div className="h-full border-2 border-gray-200 border-dashed rounded-lg" > 
-                  <Chatbox />
+              <div className="absolute inset-0 py-6 px-4 sm:px-6 lg:px-8 padSett" >
+                <div className="border-2 border-gray-200 border-dashed rounded-lg" > 
+                  {/*<Chatbox />*/}
+                  <Settings auth={auth} />
                 </div>
               </div>
               {/* End main area */}
             </main>
-            <aside className="hidden relative xl:flex xl:flex-col flex-shrink-0 w-96 border-l border-gray-200 overflow-y-auto">
-              {/* Start secondary column (hidden on smaller screens) */}
-              <div className="absolute inset-0 py-6 px-4 sm:px-6 lg:px-8">
-                
-                <Feed />
-                
-              </div>
-              {/* End secondary column */}
-            </aside>
           </div>
         </div>
       </div>
@@ -263,4 +265,4 @@ const navigation:any = [
   )
 }
 
-export default Chat
+export default Perfil

@@ -1,5 +1,5 @@
 import React, {useCallback, useEffect, useLayoutEffect, useState} from 'react';
-import { UsuariosDocument } from "./graphql/generated";
+//import { UsuariosDocument } from "./graphql/generated";
 import { Client } from 'urql'
 import {url} from "./variables/url"
 
@@ -15,20 +15,20 @@ const UsuariosQ=()=>{
     //const [usuariosResult] = useUsuariosQuery(); new Client({ url }).
     
 
-    useEffect(()=>{
+    /*useEffect(()=>{
       const usuariosResult:any = (new Client({ url })).query(UsuariosDocument).toPromise()
       usuariosResult.then((v:any)=>{
         console.log("toPromise")
         const {usuarios} = v.data
         setUsuarios(usuarios)
-        /*useEffect(()=>{
-          setUsuarios(usuarios)
-        },[])*/
+        //useEffect(()=>{
+        //  setUsuarios(usuarios)
+        //},[])
         
         console.log(v)
         console.log(usuarios)
       })
-    },[])
+    },[])*/
     
     //const users:any = usuariosResult&&usuariosResult.data ? usuariosResult.data : []
     //console.log(usuariosResult)

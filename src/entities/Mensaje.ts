@@ -24,11 +24,13 @@ export class Mensaje extends BaseEntity {
   })
   time!: Date | null;
 
+  @Column('number',{name:'de',nullable: true})
   @Field(()=>Usuario,{nullable: true})
   @ManyToOne(() => Usuario, (usuario) => usuario.msj_de)
   @JoinColumn([{ name: "de", referencedColumnName: "id" }])
   de!: Usuario;
 
+  @Column('number',{name:'para',nullable: true})
   @Field(()=>Usuario,{nullable: true})
   @ManyToOne(() => Usuario, (usuario) => usuario.msj_para)
   @JoinColumn([{ name: "para", referencedColumnName: "id" }])

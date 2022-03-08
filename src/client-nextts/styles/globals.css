@@ -34,11 +34,25 @@ a {
   cursor: pointer;
 }
 
-.chatBox{
+.chatBoxMain{
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
   align-items: flex-end;
+}
+
+.chatBox{
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.wMid{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items:center;
 }
 
 .chatDivDe{
@@ -55,6 +69,12 @@ a {
   align-self: flex-start;
 }
 
+.mainFlow{
+  flex: 1 1 auto;
+  overflow-y: auto;
+  min-height: 0px;
+}
+
 .chatFlow{
   overflow: auto;
 }
@@ -63,6 +83,15 @@ a {
   padding-left: 15px;
   background-color: #0070f3;
   border-radius: 20px;
+  margin-bottom: 3px;
+}
+
+.whiteTxt{
+  color: rgb(255, 255, 255);
+}
+
+.titlePara{
+  color:darkgray;
 }
 
 .msjPara{
@@ -70,4 +99,5 @@ a {
   padding-right: 15px;
   background-color:aquamarine;
   border-radius: 20px;
+  margin-bottom: 3px;
 }

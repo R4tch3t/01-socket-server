@@ -12,6 +12,10 @@ import {
 import { Listbox, Transition } from '@headlessui/react'
 import MensajeDe from './MensajeDe'
 import MensajePara from './MensajePara'
+import { useChatContext } from '../context/chat/ChatContext'
+import Warning from './Warning'
+import { useAppContext } from '../auth/authContext'
+import { useSocketContext } from '../context/SocketContext'
 //import { io, Socket } from "socket.io-client";
 const moods = [
     { name: 'Excited', value: 'excited', icon: FireIcon, iconColor: 'text-white', bgColor: 'bg-red-500' },
@@ -20,13 +24,39 @@ const moods = [
     { name: 'Sad', value: 'sad', icon: EmojiSadIcon, iconColor: 'text-white', bgColor: 'bg-yellow-400' },
     { name: 'Thumbsy', value: 'thumbsy', icon: ThumbUpIcon, iconColor: 'text-white', bgColor: 'bg-blue-500' },
     { name: 'I feel nothing', value: null, icon: XIcon, iconColor: 'text-gray-400', bgColor: 'bg-transparent' },
-  ]
+]
   
 function classNames(...classes: any[]) {
     return classes.filter(Boolean).join(' ')
 }
 const Chatbox: NextPage = () => {
+const {chatState}:any = useChatContext();
+const {chatActivo} = chatState;
 const [selected, setSelected] = useState(moods[5]);
+const [mensaje, setMensaje] = useState('');
+const {socket}:any = useSocketContext();
+const {auth}:any = useAppContext();
+//const {chatState}:any = useChatContext();
+
+const onChange = ({target}:any) => {
+  const {value}:any = target;
+  setMensaje(value);
+}
+
+const onSubmit=(e:any)=>{
+  e.preventDefault();
+  if(mensaje.length===0){return;}
+
+  socket.emit('mensaje-personal',
+  {
+    de:auth.id,
+    para:chatState.chatActivo.id,
+    mensaje
+  });
+
+  console.log(mensaje);
+  setMensaje('');
+}
 //const socket: Socket = io();
 
 /*socket.on("msjfromserver", (data)=>{
@@ -44,11 +74,27 @@ const handleSend = () => {
     socket.emit("msjtoserver",{name,msj})*/
 }
 
+console.log(chatState.mensajes)
+
+if(!chatActivo.id){
+  return(
+    <div className='h-full wMid' >
+      <Warning msg={"Seleciona un contacto en la barra laretal derecha para iniciar una conversación."} />
+    </div>
+  );
+}else{
   return (<>
-    <div className='h-full chatBox'  >
+    <div className='h-full chatBoxMain'  >
       {/*<div className='w-full h-full .chatMsg chatFlow ' >*/}
-        <MensajeDe name={'Victor'} txt={"hola mundoasjdaksljdaslkdjaskldjasiodjoaisdjasi"} />
-        <MensajePara name={'Victor2'} txt={"hola mundo 2"} />
+      <div className='h-full w-full chatBox mainFlow'  >
+        {chatState.mensajes.map((msj:any,i:any)=>{
+          return(((msj.para===auth.id) ?
+              <MensajeDe key={i} name={chatState.chatActivo.nombre} txt={msj.mensaje} time={msj.time} />: 
+              <MensajePara key={i} name={auth.name} txt={msj.mensaje} time={msj.time} />)) 
+        })}
+      </div>
+        {/*<MensajeDe name={'Victor'} txt={"hola mundoasjdaksljdaslkdjaskldjasiodjoaisdjasi"} />
+        <MensajePara name={'Victor2'} txt={"hola mundo 2"} />*/}
       
       {/*</div>*/}
     
@@ -61,6 +107,7 @@ const handleSend = () => {
         />
       </div>
       <div className="min-w-0 flex-1" >
+      <form  className="relative" onSubmit={onSubmit} >
         <div className="relative" >
           <div className="border border-gray-300 rounded-lg shadow-sm overflow-hidden focus-within:border-indigo-500 focus-within:ring-1 focus-within:ring-indigo-500">
             <label htmlFor="msj" className="sr-only">
@@ -72,7 +119,8 @@ const handleSend = () => {
               id="msj"
               className="block w-full py-3 border-0 resize-none focus:ring-0 sm:text-sm"
               placeholder="Enviar mensaje..."
-              defaultValue={''}
+              value={mensaje}
+              onChange={onChange}
             />
 
             {/* Spacer element to match the height of the toolbar */}
@@ -169,8 +217,7 @@ const handleSend = () => {
             </div>
             <div className="flex-shrink-0">
               <button
-                type="button"
-                onClick={handleSend}
+                type="submit"
                 className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
               >
                 Enviar
@@ -178,10 +225,12 @@ const handleSend = () => {
             </div>
           </div>
         </div>
+        </form>
       </div>
     </div>
     </div>
     </>
   )
+}
 }
 export default Chatbox

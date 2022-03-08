@@ -1,8 +1,7 @@
 import type {NextPage} from 'next'
-import { useState } from 'react'
-import { io, Socket } from "socket.io-client";
 import { useAppContext } from '../auth/authContext';
 import { useChatContext } from '../context/chat/ChatContext';
+import { fetchConToken } from '../helpers/fetch';
 import { types } from '../types/types';
 /*const people = [
     {
@@ -21,10 +20,16 @@ const Feed: NextPage = () => {
     const {chatState, dispatch}:any = useChatContext()
     const {auth}:any = useAppContext()
     const imageUrl='https://pm1.narvii.com/6442/ba5891720f46bc77825afc5c4dcbee06d3c66fe4_hq.jpg';
-    const onClick = ({target}:any,user:any) =>{
+    const onClick = async ({target}:any,user:any) =>{
         dispatch({
             type: types.activarChat,
-            payload: {id: user.id,uuid:user.uuid}
+            payload: user
+        });
+        const resp = await fetchConToken(`mensajes/${user.id}`);
+        console.log(resp);
+        dispatch({
+            type: types.cargarMensajes,
+            payload: resp.mensajes
         });
     }
     /*const people = [{

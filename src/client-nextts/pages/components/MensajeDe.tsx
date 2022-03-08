@@ -1,9 +1,11 @@
-const MensajeDe = ({name,txt}:any) => {
+import { spellDate } from "../helpers/spellDate"
+const MensajeDe = ({name,txt,time}:any) => {
+  const date = spellDate(time);
     return (
-      <div className='w-full h-full chatDivDe chatFlow ' >
+      <div className='w-full chatDivDe' >
         <div className="flex msjDe">
           <div>
-            <h4 className="text-lg font-bold">{name}</h4>
+            <h5 className="text-lg font-bold whiteTxt">{name}</h5>
             <p className="mt-1">
               {txt}
             </p>
@@ -26,6 +28,7 @@ const MensajeDe = ({name,txt}:any) => {
             {/*</svg>*/}
           </div>
         </div>
+        <span className="text-sm text-gray-500" >{date}</span>
       </div>
       )
 }

@@ -1,11 +1,11 @@
-import React, { useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { createContext } from 'react';
 import { useSocket } from '../hooks/useSocket'
 import { useAppContext } from '../auth/authContext';
 import { useChatContext } from './chat/ChatContext';
 import { types } from '../types/types';
 
-export const SocketContext = createContext({});
+const SocketContext = createContext({});
 
 
 export const SocketProvider = ({ children }:any) => {
@@ -37,9 +37,22 @@ export const SocketProvider = ({ children }:any) => {
         })
     },[socket,dispatch]);
 
+    useEffect(()=>{
+        socket?.on('mensaje-personal',(mensaje:any)=>{
+            dispatch({
+                type: types.nuevoMensaje,
+                payload: mensaje
+            })
+        });
+    },[socket,dispatch])
+
     return (
         <SocketContext.Provider value={{ socket, online }}>
             { children }
         </SocketContext.Provider>
     )
+}
+
+export function useSocketContext(){
+    return useContext(SocketContext);
 }

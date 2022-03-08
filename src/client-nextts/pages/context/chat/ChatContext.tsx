@@ -4,7 +4,7 @@ import { chatReducer } from "./chatReducer";
 const ChatContext = createContext({});
 
 const initialState={id:0,uuid:null,
-    chatActivo:null,//uuid al que se le enviara msj
+    chatActivo:{id: null,uuid:null},//uuid al que se le enviara msj
     usuarios: [],
     mensajes: [] //chat seleccionaado
 }

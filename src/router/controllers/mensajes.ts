@@ -7,7 +7,7 @@ const obtenerChat = async (req:any, res:any)=>{
     console.log(id)
     console.log(de)
 
-    const last30:any = await Mensaje.find({
+    const mensajes:any = await Mensaje.find({
         where: [{de: id, para: de } , {de: de, para: id}],
         //relations: ["de","para"],
         order: {
@@ -18,7 +18,7 @@ const obtenerChat = async (req:any, res:any)=>{
         take: 30,
         
     });
-    
+    console.log(mensajes)
     /*const last30: any = await Mensaje.createQueryBuilder("m")
     .leftJoinAndSelect("m.de","de")
     .leftJoinAndSelect("m.para","para")
@@ -30,15 +30,11 @@ const obtenerChat = async (req:any, res:any)=>{
     .take(30)
     .getMany();*/
 
-    const para = last30.para;
-
     res.json({
         ok: true,
-        mensajes: 'hola',
+        mensajes,
         uuid,
         de,
-        last30,
-        para
     });
 }
 

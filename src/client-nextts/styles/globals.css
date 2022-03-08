@@ -67,6 +67,7 @@ a {
   flex-direction: column;
   justify-content:left;
   align-self: flex-start;
+  
 }
 
 .mainFlow{
@@ -84,14 +85,7 @@ a {
   background-color: #0070f3;
   border-radius: 20px;
   margin-bottom: 3px;
-}
-
-.whiteTxt{
-  color: rgb(255, 255, 255);
-}
-
-.titlePara{
-  color:darkgray;
+  max-width: 100%;
 }
 
 .msjPara{
@@ -101,3 +95,21 @@ a {
   border-radius: 20px;
   margin-bottom: 3px;
 }
+
+.whiteTxt{
+  color: rgb(255, 255, 255);
+}
+
+.titlePara{
+  width: auto;
+  color:darkgray;
+}
+
+.wrapText {
+  overflow-x: hidden;
+  overflow-y: auto; 
+  word-wrap: break-word;
+  max-width: 750px; 
+  max-height: 400px
+}
+

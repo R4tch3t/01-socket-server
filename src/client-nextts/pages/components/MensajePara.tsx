@@ -22,11 +22,11 @@ const MensajePara = ({name,txt,time}:any) =>{
                         alt=""
                     />
                 </div>
-                <div>
-                    <h5 className="text-lg font-bold titlePara">{name}</h5>
-                    <p className="mt-1">
-                    {txt}
-                    </p>
+                <div >
+                    <h4 className="text-lg font-bold titlePara">{name}</h4>
+                    <div className="wrapText" >
+                        {txt}
+                    </div>
                 </div>
             </div>
             <span className="text-sm text-gray-500" >{date}</span>

@@ -86,7 +86,7 @@ if(!chatActivo.id){
   return (<>
     <div className='h-full chatBoxMain'  >
       {/*<div className='w-full h-full .chatMsg chatFlow ' >*/}
-      <div className='h-full w-full chatBox mainFlow'  >
+      <div id='chatBox' className='h-full w-full chatBox mainFlow'  >
         {chatState.mensajes.map((msj:any,i:any)=>{
           return(((msj.para===auth.id) ?
               <MensajeDe key={i} name={chatState.chatActivo.nombre} txt={msj.mensaje} time={msj.time} />: 

@@ -2,6 +2,13 @@ import { types } from "../../types/types";
 
 export const chatReducer = (state:any,action:any) => {
     switch(action.type){
+        case types.cerrarSesion:
+            return {
+                id:0,uuid:null,
+                chatActivo:{id: null,uuid:null},//uuid al que se le enviara msj
+                usuarios: [],
+                mensajes: []
+            }
         case types.usuariosCargados:
             return {
                 ...state,

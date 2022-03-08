@@ -6,9 +6,9 @@ const MensajeDe = ({name,txt,time}:any) => {
         <div className="flex msjDe">
           <div>
             <h5 className="text-lg font-bold whiteTxt">{name}</h5>
-            <p className="mt-1">
+            <div className="wrapText">
               {txt}
-            </p>
+            </div>
           </div>
           <div className="ml-4 flex-shrink-0">
             {/*<svg

@@ -1,15 +1,15 @@
 import React, { useContext, useEffect } from 'react';
 import { createContext } from 'react';
-import { useSocket } from '../hooks/useSocket'
+import {useSocket} from '../hooks/useSocket'
 import { useAppContext } from '../auth/authContext';
 import { useChatContext } from './chat/ChatContext';
-import { types } from '../types/types';
-import { scrollToBottomAnimated } from '../helpers/scrollToBottom';
+import {types} from '../types/types';
+import {scrollToBottomAnimated} from '../helpers/scrollToBottom';
 
 const SocketContext = createContext({});
 
 
-export const SocketProvider = ({ children }:any) => {
+const SocketProvider = ({ children }:any) => {
 
     const { socket, online, conectarSocket, desconectarSocket } = useSocket('http://localhost:3000');
     const {auth}:any = useAppContext();
@@ -58,3 +58,5 @@ export const SocketProvider = ({ children }:any) => {
 export function useSocketContext(){
     return useContext(SocketContext);
 }
+
+export default SocketProvider

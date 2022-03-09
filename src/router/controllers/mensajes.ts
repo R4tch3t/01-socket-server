@@ -7,7 +7,7 @@ const obtenerChat = async (req:any, res:any)=>{
     console.log(id)
     console.log(de)
 
-    const mensajes:any = await Mensaje.find({
+    /*const mensajes:any = await Mensaje.find({
         where: [{de: id, para: de } , {de: de, para: id}],
         //relations: ["de","para"],
         order: {
@@ -17,7 +17,21 @@ const obtenerChat = async (req:any, res:any)=>{
         skip: 0,
         take: 30,
         
-    });
+    });*/ //OTHER DB
+
+    const mensajes:any = await Mensaje.find({
+        where: {
+            $or: [{de: id, para: de } , {de: de, para: id}]
+        },
+        order: {
+            id: "ASC",
+            time: "DESC"
+        },
+        skip: 0,
+        take: 30,
+
+    });//mongo
+    
     console.log(mensajes)
     /*const last30: any = await Mensaje.createQueryBuilder("m")
     .leftJoinAndSelect("m.de","de")

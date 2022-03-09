@@ -1,5 +1,5 @@
 import { Field, Int, ObjectType } from "type-graphql";
-import { BaseEntity, Column, Entity, Index, JoinColumn, JoinTable, ManyToMany, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { BaseEntity, Column, Entity, Index, JoinColumn, JoinTable, ManyToMany, ObjectIdColumn, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { Mensaje } from "./Mensaje";
 
 @ObjectType()
@@ -8,7 +8,8 @@ import { Mensaje } from "./Mensaje";
 export class Usuario extends BaseEntity {
  
   @Field()
-  @PrimaryGeneratedColumn()
+  @ObjectIdColumn()//MONGO 
+  //@PrimaryGeneratedColumn() //OTHER DATAB
   id!: number;
 
   @Field(() => String)

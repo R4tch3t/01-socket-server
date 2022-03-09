@@ -1,8 +1,8 @@
 import '../styles/globals.css'
 import type { AppProps } from 'next/app'
 import  AuthProvider, { useAppContext }  from './auth/authContext'
-import { SocketProvider } from './context/SocketContext';
-import { ChatProvider } from './context/chat/ChatContext';
+import SocketProvider  from './context/SocketContext';
+import ChatProvider  from './context/chat/ChatContext';
 import moment from "moment"
 import 'moment/locale/es-mx'
 moment.locale('es-mx');
@@ -27,7 +27,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         </SocketProvider>
       </AuthProvider>
     </ChatProvider>
-    
+
   );
 }
 

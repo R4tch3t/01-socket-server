@@ -1,5 +1,5 @@
 import { createContext, useContext, useReducer } from "react";
-import { chatReducer } from "./chatReducer";
+import {chatReducer} from "./chatReducer";
 
 const ChatContext = createContext({});
 
@@ -10,7 +10,7 @@ const initialState={
     mensajes: [] //chat seleccionaado
 }
 
-export const  ChatProvider = ({children}:any)=>{
+const  ChatProvider = ({children}:any)=>{
     const [chatState, dispatch] = useReducer(chatReducer, initialState);
     return (
         <ChatContext.Provider value={{
@@ -25,3 +25,5 @@ export const  ChatProvider = ({children}:any)=>{
 export function useChatContext() {
     return useContext(ChatContext);
 }
+
+export default ChatProvider

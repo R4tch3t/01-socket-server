@@ -17,7 +17,7 @@ import {
 } from '@heroicons/react/outline'
 import { useAppContext } from '../auth/authContext'
 //import { useChatContext } from '../context/chat/ChatContext'
-import Feed from '../components/Feed'
+import {Feed} from '../components/Feed'
 import Chatbox from '../components/Chatbox'
 
 

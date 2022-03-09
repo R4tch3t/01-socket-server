@@ -2,9 +2,8 @@ import type {NextPage} from 'next'
 import Router  from 'next/router';
 import { useEffect, useState } from 'react';
 import { useAppContext } from './auth/authContext';
-import Errors from './components/Errors';
-import ModalError from './components/ModalError';
-import RedirecApp from './router/RedirecApp';
+import {ModalError} from './components/ModalError';
+import {RedirecApp} from './router/RedirecApp';
 
 const Login: NextPage = () => {
   //let sE:any = ['']

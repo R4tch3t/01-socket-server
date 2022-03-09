@@ -1,6 +1,7 @@
 import Input from "../Input"
 
-const General = ({handleUp, auth}:any) => {
+export const General = ({handleUp, auth}:any) => {
+    
     return (
         <div className="mt-10 divide-y divide-gray-200">
                         <div className="space-y-1">
@@ -94,4 +95,4 @@ const General = ({handleUp, auth}:any) => {
     )
 }
 
-export default General
+export default ()=>null

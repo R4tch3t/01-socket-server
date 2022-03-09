@@ -10,8 +10,8 @@ import {
   XIcon,
 } from '@heroicons/react/solid'
 import { Listbox, Transition } from '@headlessui/react'
-import MensajeDe from './MensajeDe'
-import MensajePara from './MensajePara'
+import {MensajeDe} from './MensajeDe'
+import {MensajePara} from './MensajePara'
 import { useChatContext } from '../context/chat/ChatContext'
 import Warning from './Warning'
 import { useAppContext } from '../auth/authContext'

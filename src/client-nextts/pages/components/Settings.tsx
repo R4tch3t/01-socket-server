@@ -3,16 +3,17 @@ import { NextPage } from 'next'
 import { useState } from 'react'
 import { useAppContext } from '../auth/authContext'
 
-import ModalError from './ModalError'
-import ModalSuccess from './ModalSucces'
+import {ModalError} from './ModalError'
+import {ModalSuccess} from './ModalSucces'
 import Contraseña from './settings/Contraseña'
-import General from './settings/General'
+import {General} from './settings/General'
 
 function classNames(...classes:any) {
     return classes.filter(Boolean).join(' ')
 }
 
-const Settings = ({auth}:any) => {
+export const Settings = ({auth}:any) => {
+    
     const [modalS, setModalS] = useState(false)
     const [modalE, setModalE] = useState(false)
     const [dataModal, setDataModal] = useState({title: '', txt:'', btnTxt:''})
@@ -105,7 +106,9 @@ const Settings = ({auth}:any) => {
             setModalS(true);
         }
     }
-
+    /*if(!auth){
+        return<></>
+    }*/
     return ( <>
         {modalS && <ModalSuccess open={modalS} setOpen={setModalS} title={dataModal.title} 
         txt={dataModal.txt} btnTxt={dataModal.btnTxt} />}
@@ -277,4 +280,4 @@ const Settings = ({auth}:any) => {
     </>)
 }
 
-export default Settings
+export default ()=>null

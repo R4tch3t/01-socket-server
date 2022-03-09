@@ -4,7 +4,7 @@ import React, { useEffect } from 'react';
 import { useAppContext } from '../auth/authContext';
 
 import Chat from "../subPages/Chat"
-import RedirecApp from './RedirecApp';
+import {RedirecApp} from './RedirecApp';
 //import Login from "../login"
 //import Registro from "../sigin"
 const AppLinker = () =>{

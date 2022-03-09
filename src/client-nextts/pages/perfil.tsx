@@ -16,8 +16,8 @@ import {
   LogoutIcon
 } from '@heroicons/react/outline'
 import { useAppContext } from './auth/authContext'
-import Settings from './components/Settings'
-import RedirecApp from './router/RedirecApp'
+import {Settings} from './components/Settings'
+import {RedirecApp} from './router/RedirecApp'
 import Router  from 'next/router'
 
 

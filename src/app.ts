@@ -48,6 +48,7 @@ export async function startServer(){
     const root = path.join(__dirname, 'client-nextts/.next/server/pages', 'index.html');
     const login = path.join(__dirname, 'client-nextts/.next/server/pages', 'login.html');
     const signup = path.join(__dirname, 'client-nextts/.next/server/pages', 'signup.html');
+    const perfil = path.join(__dirname, 'client-nextts/.next/server/pages', 'perfil.html');
     app.get('/', function (req, res) {
       //res.sendFile(path.join(__dirname, '', 'index.html'));
       res.sendFile(root);
@@ -61,6 +62,9 @@ export async function startServer(){
     });
     app.get('/signup', function (req, res) {
       res.sendFile(signup);
+    });
+    app.get('/perfil', function (req, res) {
+      res.sendFile(perfil);
     });
     //app.get("/",express.static(path.join(__dirname, 'client-nextts/.next/server/pages')));
 

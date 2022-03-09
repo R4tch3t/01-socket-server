@@ -1,10 +1,8 @@
 import type {NextPage} from 'next'
 import { useState } from 'react';
 import { useAppContext } from './auth/authContext';
-import Errors from './components/Errors';
-import ModalError from './components/ModalError';
-import ModalSuccess from './components/ModalSucces';
-import Success from './components/Success';
+import {ModalError} from './components/ModalError';
+import {ModalSuccess} from './components/ModalSucces';
 
 
 

@@ -2,9 +2,11 @@ import { Fragment, useState } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import { CheckIcon } from '@heroicons/react/outline'
 
-const ModalSuccess = ({open, setOpen, title, txt, btnTxt}:any) => {
+export const ModalSuccess = ({open, setOpen, title, txt, btnTxt}:any) => {
     //const [open, setOpen] = useState(true)
-
+ /*if(!setOpen){ 
+    return <></>
+ }*/
   return (
     <Transition.Root show={open} as={Fragment}>
       <Dialog as="div" className="fixed z-10 inset-0 overflow-y-auto" onClose={setOpen}>
@@ -67,4 +69,4 @@ const ModalSuccess = ({open, setOpen, title, txt, btnTxt}:any) => {
   )
 }
 
-export default ModalSuccess
+export default ()=>null

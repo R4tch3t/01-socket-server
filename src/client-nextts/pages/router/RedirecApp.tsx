@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useAppContext } from '../auth/authContext';
 
-export default () => {
+export const RedirecApp=() => {
     const {auth, verificaToken}:any = useAppContext();
     
     useEffect(()=>{
@@ -15,3 +15,5 @@ export default () => {
     }*/
     return auth
 }
+
+export default ()=>null

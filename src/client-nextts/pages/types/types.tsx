@@ -5,3 +5,5 @@ export const types = {
     cargarMensajes: "[Chat] Cargar mensajes",
     cerrarSesion: "[Chat] Cerrar sesion"
 }
+
+export default ()=>null

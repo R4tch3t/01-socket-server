@@ -1,5 +1,5 @@
 import { Field, Int, ObjectType } from "type-graphql";
-import { BaseEntity, Column, Entity, Index, JoinColumn, JoinTable, ManyToMany, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { BaseEntity, Column, CreateDateColumn, Entity, Index, JoinColumn, JoinTable, ManyToMany, ManyToOne, ObjectIdColumn, PrimaryGeneratedColumn } from "typeorm";
 import { Usuario } from "./Usuario";
 
 @ObjectType()
@@ -9,11 +9,12 @@ export class Mensaje extends BaseEntity {
   
   @Field()
   //@Column("integer", { primary: true, name: "id" })
-  @PrimaryGeneratedColumn()
+  //@PrimaryGeneratedColumn() OTHER DATABASE
+  @ObjectIdColumn() //MONGO
   id!: number;
 
   @Field(() => String)
-  @Column("text", { name: "Mensaje", nullable: true })
+  @Column("text", { name: "mensaje", nullable: true })
   mensaje!: string | null;
 
   @Field(()=> String)
@@ -22,7 +23,8 @@ export class Mensaje extends BaseEntity {
     nullable: true,
     default: () => "now()",
   })
-  time!: Date | null;
+  @CreateDateColumn({ type: 'timestamp' })//MONGO
+  time!: Date;
 
   @Column('number',{name:'de',nullable: true})
   @Field(()=>Usuario,{nullable: true})

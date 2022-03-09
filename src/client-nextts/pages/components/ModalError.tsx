@@ -2,11 +2,13 @@ import { Fragment, useRef, useState } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import { ExclamationIcon } from '@heroicons/react/outline'
 
-const ModalError = ({open, setOpen, title, txt, btnTxt}:any) => {
+export const ModalError=({open, setOpen, title, txt, btnTxt}:any)=>{
   //const [open, setOpen] = useState(true)
-
+  //try{  
   const cancelButtonRef = useRef(null)
-
+    /*if(!setOpen){
+        return <></>
+    }*/
   return (
     <Transition.Root show={open} as={Fragment}>
       <Dialog as="div" className="fixed z-10 inset-0 overflow-y-auto" initialFocus={cancelButtonRef} onClose={setOpen}>
@@ -75,6 +77,10 @@ const ModalError = ({open, setOpen, title, txt, btnTxt}:any) => {
       </Dialog>
     </Transition.Root>
   )
+/*}catch(e){
+    console.log(e)
+    return <></>
+}*/
 }
 
-export default ModalError
+export default ()=>null

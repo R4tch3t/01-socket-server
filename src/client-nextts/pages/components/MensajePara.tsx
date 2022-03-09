@@ -1,6 +1,6 @@
-import { spellDate } from "../helpers/spellDate";
+import spellDate from "../helpers/spellDate";
 
-const MensajePara = ({name,txt,time}:any) =>{
+export const MensajePara = ({name,txt,time}:any) =>{
     const date = spellDate(time);
     return (
         <div className='chatDivPara' >
@@ -34,4 +34,4 @@ const MensajePara = ({name,txt,time}:any) =>{
       )
 }
 
-export default MensajePara
+export default ()=>null

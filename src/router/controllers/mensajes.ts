@@ -24,8 +24,8 @@ const obtenerChat = async (req:any, res:any)=>{
             $or: [{de: id, para: de } , {de: de, para: id}]
         },
         order: {
-            id: "ASC",
-            time: "DESC"
+            //id: "ASC",
+            time: "ASC"
         },
         skip: 0,
         take: 30,
